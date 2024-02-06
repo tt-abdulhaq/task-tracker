@@ -62,6 +62,23 @@ impl TaskTrucker {
         }
     }
 
+    fn update_task_description(&mut self, name:&str, description:String) {
+        if let Some(task) = self.tasks.get_mut(name){
+            task.description = description;
+            println!("Task '{}' updated successfully!", name);
+        }else {
+            println!("Task '{}' not found!", name);
+        }
+    }
+    fn update_task_date(&mut self, name:&str, date:String) {
+        if let Some(task) = self.tasks.get_mut(name){
+            task.due_date = date;
+            println!("Task '{}' updated successfully!", name);
+        }else {
+            println!("Task '{}' not found!", name);
+        }
+    }
+
     fn display_tasks(&self) {
         for (name, task) in &self.tasks {
             println!(
@@ -95,9 +112,11 @@ fn hint(){
     println!("Task Tracker Menu:");
     println!("1. Add Task");
     println!("2. Update Task Status");
-    println!("3. Delete Task");
-    println!("4. Display Tasks");
-    println!("5. Exit");
+    println!("3. Update Task Description");
+    println!("4. Update Task Due Date");
+    println!("5. Delete Task");
+    println!("6. Display Tasks");
+    println!("7. Exit");
 }
 
 fn add_task(task_trucker:&mut TaskTrucker){
@@ -121,6 +140,18 @@ fn update_task_status(task_trucker:&mut TaskTrucker){
     task_trucker.update_task_status(&name, new_status);
 }
 
+fn update_task_description(task_trucker:&mut TaskTrucker) {
+    let name = get_user_input("Enter task name: ");
+    let description = get_user_input("Enter new Description: ");
+    task_trucker.update_task_description(&name, description)
+}
+
+fn update_task_date(task_trucker:&mut TaskTrucker) {
+    let name = get_user_input("Enter task name: ");
+    let due_date = get_user_input("Enter new Due date: ");
+    task_trucker.update_task_date(&name, due_date)
+}
+
 fn handle_task(task_trucker:&mut TaskTrucker, choice: u8){
     match  choice { 
         1 => {
@@ -130,13 +161,19 @@ fn handle_task(task_trucker:&mut TaskTrucker, choice: u8){
             update_task_status(task_trucker);
         }
         3 => {
+            update_task_description(task_trucker)
+        }
+        4 => {
+            update_task_date(task_trucker)
+        }
+        5 => {
             let name = get_user_input("Enter task name: ");
             task_trucker.delete_task(&name);
         }
-        4 => {
+        6 => {
             task_trucker.display_tasks();
         }
-        5 => {
+        7 => {
             std::process::exit(0);
         }
         _ => {
