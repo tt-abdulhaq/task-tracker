@@ -156,26 +156,26 @@ fn handle_task(task_trucker:&mut TaskTrucker, choice: u8){
     match  choice { 
         1 => {
             add_task(task_trucker);
-        }
+        },
         2 => {
             update_task_status(task_trucker);
-        }
+        },
         3 => {
             update_task_description(task_trucker)
-        }
+        },
         4 => {
             update_task_date(task_trucker)
-        }
+        },
         5 => {
             let name = get_user_input("Enter task name: ");
             task_trucker.delete_task(&name);
-        }
+        },
         6 => {
             task_trucker.display_tasks();
-        }
+        },
         7 => {
             std::process::exit(0);
-        }
+        },
         _ => {
             println!("Please enter a correct number!");
             hint();
