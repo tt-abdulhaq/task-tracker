@@ -1,4 +1,4 @@
-use std::{collections::HashMap, io::{Write}};
+use std::{collections::HashMap, io::Write};
 
 
 #[derive(Debug)]
@@ -100,7 +100,6 @@ fn main(){
         let choice = match choice.parse::<u8>(){
             Ok(num) => num,
             Err(_) => {
-                println!("Please enter a number");
                 0
             }
         };
@@ -174,6 +173,7 @@ fn handle_task(task_trucker:&mut TaskTrucker, choice: u8){
             task_trucker.display_tasks();
         },
         7 => {
+            println!("GoodBye!");
             std::process::exit(0);
         },
         _ => {
